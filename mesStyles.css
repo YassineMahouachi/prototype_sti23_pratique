@@ -1,0 +1,88 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
+/* Zone 1 */
+header {
+    height: 120px;
+    border-bottom: 2px solid black;
+    padding: 20px;
+}
+header h1 {
+    text-align: center;
+    font-size: 40px;
+    padding: 6px;
+    transition: 1s;
+}
+header h1:hover {
+    margin-top: 40px;
+    color: blue;
+}
+/* Zone 2 */
+main {
+    height: 809px;
+}
+main nav {
+    padding: 40px;
+    height: 809px;
+    width: 30%;
+    border-right: 2px solid black;
+    position: absolute;
+}
+main nav ul {
+    list-style: none;
+}
+main nav ul li {
+    padding: 5px;
+}
+main nav ul li a {
+    text-decoration: none;
+    color: black;
+    font-weight: bold;
+}
+/* Zone 3 */
+main section {
+    width: 70%;
+    height: 809px;
+    float: right;
+    padding: 20px;
+}
+/* Les Formulaires */
+fieldset {
+    margin: 10px;
+    /* width: 70%; */
+}
+legend {
+    font-weight: bold;
+    padding: 5px;
+}
+div {
+    padding: 40px;
+}
+div label {
+    font-weight: bold;
+    width: 200px;
+    display: inline-block;
+}
+input[type='submit'], input[type='reset'] {
+    width: 100px;
+    height: 33px;
+    cursor: pointer;
+    float: right;
+    margin: 10px;
+}
+.p1 {
+    position: absolute;
+    padding: 0;
+}
+.p2 {
+    position: relative;
+    float: right;
+    padding: 0;
+}
+.champ:focus {
+    background-color: yellow;
+    font-size: 16px;
+}

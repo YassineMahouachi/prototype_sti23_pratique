@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Evaluation</title>
+    <link rel="stylesheet" href="mesStyles.css">
+</head>
+
+<body>
+    <fieldset>
+        <legend>Evaluation d'un modele : </legend>
+        <form action="evaluation.php" onsubmit="return verif2()" method="POST">
+            <div>
+                <div class="p1">
+                    <label for="">N°Permis : </label>
+                    <input type="text" name="permis" class="champ" id="permis">
+                </div>
+                <div class="p2">
+                    <label for="">Modele Teste : </label>
+                    <select name="model" id="cars">
+                        <option value="non">Choisir un modele</option>
+                        <option value="WALLIS IRIS">WALLIS IRIS</option>
+                        <option value="WALLIS 619">WALLIS 619</option>
+                        <option value="WALLYS 216">WALLYS 216</option>
+                    </select>
+                </div>
+            </div>
+            <div>
+                <label for="">Notes Attribues : </label>
+                <div>
+                    <span style="font-weight: bold;">Securite : &thinsp;</span><input type="number" name="securite"
+                        id="secu" max="5" min="1" class="champ">
+                    <span style="font-weight: bold;">Conduite : &thinsp;</span><input type="number" name="conduite"
+                        id="cond" max="5" min="1" class="champ">
+                    <span style="font-weight: bold;">Confort : &thinsp;</span><input type="number" name="confort"
+                        id="conf" max="5" min="1" class="champ">
+                </div>
+            </div>
+            <div>
+                <label for="">Je ne suis pas un robot :</label>
+                <input type="checkbox" name="robot" id="robot">
+            </div>
+            <div>
+                <label for=""></label>
+                <input type="reset" value="Annuler">
+                <input type="submit" value="Valdier">
+            </div>
+        </form>
+
+    </fieldset>
+
+    <script src="controle.js"></script>
+</body>
+
+</html>
