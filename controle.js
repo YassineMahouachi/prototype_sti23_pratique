@@ -7,7 +7,7 @@ function uniquementLettres(ch) {
         if (!(ch.charAt(i).toUpperCase() >= "A" && ch.charAt(i).toUpperCase() <= "Z")) {
             valid = false;
         }
-        if (!valid || i == ch.length-1) {
+        if (!valid || i == ch.length - 1) {
             loop = false
         }
     }
@@ -19,100 +19,75 @@ function verifPermis(ch) {
         if (pos == 2) {
             let ch1 = ch.substr(0, 2);
             let ch2 = ch.substr(3, 7);
-            console.log(ch1, ch2, isNaN(ch1), isNaN(ch2));
-            if (isNaN(ch1) && isNaN(ch2)) {
-                return false;
-            }else {
-                return true
-            }
+            console.log(ch1, ch2, !isNaN(ch1), !isNaN(ch2));
+            return !isNaN(ch1) && !isNaN(ch2);
         }else {
             return false;
         }
-    }else {
+    } else {
         return false;
     }
 }
 function verif1() {
-    /* Getting values */
     let nom = document.getElementById("nom").value;
     let prenom = document.getElementById("prenom").value;
     let permis = document.getElementById("permis").value;
     let F = document.getElementById("F").checked;
     let M = document.getElementById("M").checked;
     let ville = document.getElementById("villes");
-    /* Tests */
-    let nomTest = uniquementLettres(nom) && (nom.length >= 3 && nom.length <= 20);
-    let prenomTest = uniquementLettres(prenom) && (prenom.length >= 3 && prenom.length <= 20);
-    let genreTest = M || F;
-    let permisTest = verifPermis(permis);
-    let villeSelectione = ville.value != "non";
-    let verif = permisTest && nomTest && prenomTest && genreTest && villeSelectione;
-    if (verif) {
-        return true;
-    }else {
-        if (!permisTest) {
-            alert("verifier le permis!");
-            return false;
-        }
-        if (!nomTest) {
-            alert("verifier le nom!");
-            return false;
-        }
-        if (!prenomTest) {
-            alert("verifier le prenom!");
-            return false;
-        }
-        if (!genreTest) {
-            alert("selectioner un genre!");
-            return false;
-        }
-        if (!villeSelectione) {
-            alert("selectioner une ville!");
-            return false
-        }
-    } 
+    
+    if (!(verifPermis(permis))) {
+        alert("verifiez le permis!");
+        return false;
+    }
+    if (!(uniquementLettres(nom) && nom.length >= 3 && nom.length <= 20)) {
+        alert("verifiez le nom!");
+        return false;
+    }
+    if (!(uniquementLettres(prenom) && prenom.length >= 3 && prenom.length <= 20)) {
+        alert("verifiez le prenom!");
+        return false;
+    }
+    if (!(M || F)) {
+        alert("selectionez un genre!");
+        return false;
+    }
+    if (!(ville.selectedIndex > 0)) {
+        alert("selectionez une ville!");
+        return false;
+    }
+
 }
 function verif2() {
-    /* Getting Values */
     let permis = document.getElementById("permis").value;
     let cars = document.getElementById("cars");
     let secu = document.getElementById("secu").value;
     let cond = document.getElementById("cond").value;
     let conf = document.getElementById("conf").value;
     let robot = document.getElementById("robot").checked;
-    /* Tests */
-    let permisTest = verifPermis(permis);
-    let voitureSelectione = cars.value != "non";
-    let condTest = cond >= 1;
-    let confTest = conf >= 1;
-    let secuTest = secu >= 1;
-    let verif = permisTest && voitureSelectione && condTest && confTest && secuTest && robot;
-    if (verif) {
-        return true;
-    }else {
-        if (!permisTest) {
-            alert("verifier le permis");
-            return false;
-        }
-        if (!voitureSelectione) {
-            alert("selectioner une voiture");
-            return false;
-        }
-        if (!condTest) {
-            alert("verifier securite!");
-            return false;
-        }
-        if (!confTest) {
-            alert("verifier confort!");
-            return false;
-        }
-        if (!condTest) {
-            alert("verifier conduite!");
-            return false;
-        }
-        if (!robot) {
-            alert("cocher sur robot");
-            return false;
-        }
+    
+    if (!(verifPermis(permis))) {
+        alert("verifiez le permis!");
+        return false;
+    }
+    if (!(cars.selectedIndex > 0)) {
+        alert("selectionez une voiture!");
+        return false;
+    }
+    if (isNaN(secu) || !(Number(secu) >= 1 && Number(secu) <= 5)) {
+        alert("verifiez la note du securité!");
+        return false;
+    }
+    if (isNaN(cond) || !(Number(cond) >= 1 && Number(cond) <= 5)) {
+        alert("verifiez la note du conduite!");
+        return false;
+    }
+    if (isNaN(conf) || !(Number(conf) >= 1 && Number(conf) <= 5)) {
+        alert("verifiez la note du confort!");
+        return false;
+    }
+    if (!robot) {
+        alert("cochez sur je suis pas un robot!");
+        return false;
     }
 }

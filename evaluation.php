@@ -1,32 +1,33 @@
 <?php
-
-$connection = mysqli_connect("localhost", "root", "", "prototype_sti23");
-
-$numpermis = $_POST["permis"];
-
-$query = "SELECT * FROM testeur WHERE numpermis = '$numpermis'";
-$res= mysqli_query($connection, $query);
-
-if (mysqli_num_rows($res) == 0) {
-    echo "Le numero du permis : " . $numpermis . " n'existe pas!";
-} else {
-    $query = "SELECT * FROM testeur, evaluation WHERE testeur.numpermis = evaluation.numpermis AND testeur.numpermis = '$numpermis'";
-    $res = mysqli_query($connection, $query);
-
-    if (mysqli_num_rows($res) == 0) {
-        $model = $_POST['model'];
-        $sec = $_POST['securite'];
-        $cnd = $_POST['conduite'];
-        $con = $_POST['confort'];
-        //$dt = date('Y-m-d');
-        $query = "INSERT INTO evaluation(numpermis, idmodele, datetest, securite, conduite, confort) VALUES ('$numpermis', '$model', 'NOW()', '$sec', '$cnd', '$con')";
-        mysqli_query($connection, $query);
-        echo "L'évaluation a été ajoutée avec succès.";
-    } else {
-        echo "Vous avez déjà testé ce modèle !";
+    require("connection.php");
+    if (isset($_POST)) {
+        $permis = $_POST['permis'];
+        $req = "SELECT * FROM testeur WHERE numpermis = '$permis'";
+        $res = mysqli_query($server, $req);
+        if (mysqli_num_rows($res) == 0) {
+            echo "Ce permis n'existe pas dans la base!";
+        }else {
+            $model = $_POST['model'];
+            $req = "SELECT idmodele FROM modelevoiture WHERE libelle = '$model'";
+            $res = mysqli_query($server, $req);
+            $idmodele = mysqli_fetch_array($res);
+            $idmodele = $idmodele[0];
+            $secu = $_POST['securite'];
+            $cond = $_POST['conduite'];
+            $conf = $_POST['confort'];
+            $today = date("Y-m-d");
+            $req = "SELECT * FROM evaluation WHERE numpermis = '$permis' AND idmodele = '$idmodele'";
+            $res = mysqli_query($server, $req);
+            if (mysqli_num_rows($res) > 0) {
+                echo "Vous avez testé ce modele!";
+            }else {
+                $req = "INSERT INTO evaluation(numpermis, idmodele, datetest, securite, conduite, confort) VALUES ('$permis', '$idmodele', '$today', '$secu', '$cond', '$conf')";
+                $res = mysqli_query($server, $req);
+                if ($res) {
+                    echo "Enregistré";
+                }
+            }
+        }
     }
-}
-
-$mysqli_close();
-
+    mysqli_close($server);
 ?>

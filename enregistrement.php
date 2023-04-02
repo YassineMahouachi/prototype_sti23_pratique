@@ -1,41 +1,26 @@
 <?php
-
-$connection = mysqli_connect("localhost", "root", "", "prototype_sti23");
-
-$permis = $_POST['permis'];
-$nom = $_POST['nom'];
-$prenom = $_POST['prenom'];
-$genre = $_POST['genre'];
-$ville = $_POST['ville'];
-
-$query = "SELECT * FROM testeur WHERE numpermis = '$permis'";
-$result = mysqli_query($connection, $query);
-
-if (mysqli_num_rows($result) > 0) {
-    echo "Ce numero de permis : " . $permis . "deja existe!";
-} else {
-    $idville = 0;
-    switch ($ville) {
-        case "Gafsa":
-            $idville = 1;
-            break;
-        case "Kef":
-            $idville = 2;
-            break;
-        case "Sousse":
-            $idville = 3;
-            break;
-        case "Tunis":
-            $idville = 4;
-            break;
+    require("connection.php");
+    if (isset($_POST)) {
+        $permis = $_POST['permis'];
+        $req = "SELECT * FROM testeur WHERE numpermis = '$permis'";
+        $res = mysqli_query($server, $req);
+        if (mysqli_num_rows($res) != 0) {
+            echo "Ce permis deja existe dans la base";
+        }else {
+            $nom = $_POST['nom'];
+            $prenom = $_POST['prenom'];
+            $genre = $_POST['genre'];
+            $villes = $_POST['ville'];
+            $req = "SELECT idville FROM ville WHERE libville = '$villes'";
+            $res = mysqli_query($server, $req);
+            $idville = mysqli_fetch_array($res);
+            $idville = $idville[0];
+            $req = "INSERT INTO testeur(numpermis, nom, prenom, genre, idville) VALUES ('$permis', '$nom', '$prenom', '$genre', '$idville')";
+            $res = mysqli_query($server, $req);
+            if ($res) {
+                echo "Enregisté";
+            }
+        }
     }
-    
-    $query = "INSERT INTO testeur(numpermis, nom, prenom, genre, idville) VALUES('$permis', '$nom', '$prenom', '$genre', '$idville')";
-    mysqli_query($connection, $query);
-    
-    echo "Enregistrement fait avec succes";
-}
-
-mysqli_close($connection);
-
+    mysqli_close($server);
 ?>
